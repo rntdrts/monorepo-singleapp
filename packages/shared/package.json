@@ -1,0 +1,11 @@
+{
+  "name": "@monorepo/shared",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-native": "^0.61.5"
+  }
+}

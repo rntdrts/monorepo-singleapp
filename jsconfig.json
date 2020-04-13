@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "experimentalDecorators": true,
+    "baseUrl": "./packages/",
+    "paths": {
+      "@geekuendo/web/*": [
+        "web/src/*"
+      ],
+      "@geekuendo/app/*": [
+        "app/src/*"
+      ],
+      "@geekuendo/shared/*": [
+        "shared/src/*"
+      ]
+    }
+  }
+}

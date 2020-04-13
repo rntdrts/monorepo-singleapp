@@ -11,8 +11,8 @@ module.exports = env =>
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].[contenthash].js',
-      chunkFilename: '[name].[contenthash].js',
+      filename: '[name].js',
+      chunkFilename: '[name].js',
       publicPath: `${process.env.CDN_URL}/`
     },
     devtool: 'source-map',
@@ -36,7 +36,12 @@ module.exports = env =>
         new TerserPlugin({
           cache: true,
           parallel: true,
-          extractComments: 'all',
+          terserOptions: {
+            output: {
+              comments: false
+            }
+          },
+          extractComments: false,
           sourceMap: true
         })
       ],

@@ -1,39 +1,11 @@
 const path = require('path');
 const plugins = require('./webpack.plugins');
 
-const sassRegex = /\.s?[ac]ss$/;
-const sassModuleRegex = /index\.s?[ac]ss$/;
-
-const getLoaders = useModules => [
-  {
-    loader: 'style-loader',
-    options: {
-      sourceMap: true
-    }
-  },
-
-  {
-    loader: 'css-loader',
-    options: {
-      modules: useModules,
-      localIdentName: '[local]--[hash:base64:5]',
-      url: false
-    }
-  },
-
-  {
-    loader: 'sass-loader',
-    options: {
-      includePaths: [path.resolve(__dirname, 'node_modules')],
-      data: `$cdnFolder: '${process.env.CDN_URL}';`
-    }
-  }
-];
-
 module.exports = env => ({
   plugins: plugins(env), // important to be the first config to load the .env configuration
   entry: {
-    main: './src/index.js'
+    main: './src/index.js',
+    background: './src/background.js'
   },
   module: {
     rules: [
@@ -45,33 +17,13 @@ module.exports = env => ({
           path.resolve(__dirname, 'src')
         ],
         use: ['babel-loader', 'eslint-loader']
-      },
-      {
-        test: sassRegex,
-        exclude: sassModuleRegex,
-        use: getLoaders(false)
-      },
-      {
-        test: sassModuleRegex,
-        use: getLoaders(true).concat([
-          {
-            loader: 'sass-resources-loader',
-            options: {
-              resources: path.join(process.cwd(), 'src/assets/sass/utils.scss')
-            }
-          }
-        ])
       }
     ]
   },
   resolve: {
     alias: {
-      app: path.join(__dirname, 'src'),
-      landing: path.join(__dirname, 'src/containers/Landing'),
-      constants: path.join(__dirname, 'src/constants'),
-      clients: path.join(__dirname, 'src/clients'),
-      utils: path.join(__dirname, 'src/utils'),
-      '@monrepo/shared': path.resolve(__dirname, '../shared/src'),
+      '@geekuendo/web': path.join(__dirname, 'src'),
+      '@geekuendo/shared': path.resolve(__dirname, '../shared/src'),
       'react-native': 'react-native-web'
     },
     extensions: ['.web.js', '.js']

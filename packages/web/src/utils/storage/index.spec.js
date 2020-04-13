@@ -1,12 +1,12 @@
-import { memoryStorage, getStorage } from 'app/utils/storage';
+import { memoryStorage, getStorage } from '@geekuendo/web/utils/storage';
 
-const unsupportedStorage = (function() {
+const unsupportedStorage = function() {
   return {
     getItem() {
       throw new Error('not supported');
     }
-  }
-});
+  };
+};
 
 describe('storage util', () => {
   it('it validates memoryStorage methods {getItem, setItem}', () => {
@@ -16,7 +16,7 @@ describe('storage util', () => {
 
     storage.setItem('random_key', 'papaia');
 
-    expect(storage.getItem('random_key')).toEqual('papaia')
+    expect(storage.getItem('random_key')).toEqual('papaia');
   });
 
   it('it validates getStorage return window.locaStorage', () => {
@@ -35,6 +35,6 @@ describe('storage util', () => {
 
     storage.setItem('random_key', 'papaia');
 
-    expect(storage.getItem('random_key')).toEqual('papaia')
+    expect(storage.getItem('random_key')).toEqual('papaia');
   });
 });

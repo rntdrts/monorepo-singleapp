@@ -27,20 +27,27 @@ module.exports = env => {
       new RegExp(`[/\\\\](${supportedDateLocales.join('|')})[/\\\\]index.js`)
     ),
     new ManifestPlugin({
-      fileName: 'assets/manifest.json',
-      basePath: '/src/',
+      fileName: 'manifest.json',
+      filter: file => false,
       seed: {
-        name: 'Bootstrap',
-        theme_color: '#FFF',
-        background_color: '#ffffff',
-        icons: [
-          {
-            src: '/assets/images/favicon.ico',
-            start_url: './index.html',
-            display: 'standalone',
-            size: '16x16'
-          }
-        ]
+        manifest_version: 2,
+        short_name: 'Geekuendo',
+        name: 'Geekuendo',
+        version: '0.0.0',
+        icons: {
+          '16': '/assets/images/favicon.png'
+        },
+        browser_action: {},
+        chrome_url_overrides: {
+          newtab: 'index.html'
+        },
+        permissions: ['storage', 'tabs', 'background'],
+        content_security_policy:
+          'script-src \'self\' \'unsafe-eval\'; object-src \'self\'',
+        background: {
+          scripts: ['background.js'],
+          persistent: false
+        }
       }
     }),
     new CleanWebpackPlugin('dist', {}),
